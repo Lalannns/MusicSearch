@@ -10,5 +10,15 @@ target 'MusicSearch' do
   pod 'SwiftyJSON'
   pod 'SVProgressHUD'
   pod 'SDWebImage'
-  
+
+
+  target 'MusicSearchTests' do
+    inherit! :search_paths
+    # Pods for testing
+  end
+
+  target 'MusicSearchUITests' do
+    # Pods for testing
+  end
+
 end

@@ -2,7 +2,7 @@
 //  MusicTableViewCell.swift
 //  MusicSearch
 //
-//  Created by Allan Auezkhan on 02.09.2025.
+//  Created by Allan Auezkhan on 05.09.2025.
 //
 
 import UIKit
@@ -17,6 +17,7 @@ class MusicTableViewCell: UITableViewCell {
     
     @IBOutlet weak var artistNameLabel: UILabel!
     
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -28,11 +29,10 @@ class MusicTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
+    
     func setData (music: MusicItem) {
         trackNameLabel.text = music.trackName
-        artistNameLabel. text = music.artistName
-        
-        artworkImageView.sd_setImage(with: URL(string: music.artworkUr1100))
+        artistNameLabel.text = music.artistName
+        artworkImageView.sd_setImage(with: URL(string: music.artworkUrl100))
     }
-
 }

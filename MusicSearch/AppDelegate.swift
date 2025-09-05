@@ -2,7 +2,7 @@
 //  AppDelegate.swift
 //  MusicSearch
 //
-//  Created by Allan Auezkhan on 02.09.2025.
+//  Created by Allan Auezkhan on 05.09.2025.
 //
 
 import UIKit

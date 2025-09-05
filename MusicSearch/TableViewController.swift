@@ -2,13 +2,13 @@
 //  TableViewController.swift
 //  MusicSearch
 //
-//  Created by Allan Auezkhan on 02.09.2025.
+//  Created by Allan Auezkhan on 05.09.2025.
 //
 
 import UIKit
-import Alamofire
-import SwiftyJSON
 import SVProgressHUD
+import SwiftyJSON
+import Alamofire
 
 class TableViewController: UITableViewController {
     
@@ -22,18 +22,40 @@ class TableViewController: UITableViewController {
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        
+        searchMusic(term:"Drake")
+    }
+    
+    func searchMusic(term:String){
+        SVProgressHUD.show()
+        
+        let parameters = ["term": term,
+                          "limit": 25] as [String : Any]
+        
+        AF.request("https://itunes.apple.com/search", method: .get, parameters: parameters).responseData{response in
+            SVProgressHUD.dismiss()
+            
+            if response.response?.statusCode == 200 {
+                let json = JSON(response.data!)
+                
+                if let array = json["results"].array {
+                    for item in array {
+                        let music = MusicItem(json: item)
+                        self.arrayMusic.append(music)
+                    }
+                    
+                }
+                
+                self.tableView.reloadData()
+            }
+        }
     }
 
-    func searchMusic(term:String) {
-        
-        
-        
-    }
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -46,11 +68,12 @@ class TableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! MusicTableViewCell
 
         // Configure the cell...
+        
         cell.setData(music: arrayMusic[indexPath.row])
 
         return cell
     }
-  
+    
 
     /*
     // Override to support conditional editing of the table view.
